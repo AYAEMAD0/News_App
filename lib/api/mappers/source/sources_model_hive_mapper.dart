@@ -1,10 +1,12 @@
-import '../../../domain/entities/source/sources.dart';
-import '../../model/source/sources_dto.dart';
 
-extension SourcesMapper on SourcesDto{
+
+import '../../../data/model_hive/source/sources_model.dart';
+import '../../../domain/entities/source/sources.dart';
+
+extension SourcesModelHiveMapper on SourcesModel{
   Sources toSources(){
     return Sources(
-     category: category,
+      category: category,
       name: name,
       id: id,
       description: description,

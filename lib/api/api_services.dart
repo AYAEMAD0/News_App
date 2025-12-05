@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:news_app/api/api_constants.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/api/api_endpoint.dart';
 import 'package:news_app/api/model/source/source_response_dto.dart';
-
 import 'model/news/news_response_dto.dart';
 
 class ApiServices {
@@ -14,7 +13,7 @@ class ApiServices {
       final response=await dio.get(
           ApiEndpoint.sourceApi,
           queryParameters: {
-        "apiKey": ApiConstants.apiKey,
+        "apiKey": dotenv.env['API_KEY'],
         "category": categoryId,});
       return SourceResponseDto.fromJson(response.data);
     }catch(e){
@@ -32,7 +31,7 @@ class ApiServices {
           ApiEndpoint.newApi,
           queryParameters: {
             "sources": sourceId,
-            "apiKey": ApiConstants.apiKey,
+            "apiKey": dotenv.env['API_KEY'],
             "page": page.toString(),
             "pageSize": pageSize.toString(),
           });
