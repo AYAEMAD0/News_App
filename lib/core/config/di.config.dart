@@ -36,6 +36,8 @@ import '../../domain/repo/news/news_repo.dart' as _i745;
 import '../../domain/repo/source/source_repo.dart' as _i849;
 import '../../domain/usecase/news_usecase.dart' as _i487;
 import '../../domain/usecase/source_usecase.dart' as _i690;
+import '../../features/home/presentation/viewmodel/home/home_cubit.dart'
+    as _i743;
 import '../../features/news/presentation/viewmodel/news/news_cubit.dart'
     as _i923;
 import '../../features/news/presentation/viewmodel/source/source_cubit.dart'
@@ -53,6 +55,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
+    gh.factory<_i743.HomeCubit>(() => _i743.HomeCubit());
     gh.singleton<_i361.BaseOptions>(() => dioModule.provideBaseOption());
     gh.singleton<_i528.PrettyDioLogger>(() => dioModule.providePrettyLogger());
     gh.factory<_i111.SourceLocalDataSource>(
