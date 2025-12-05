@@ -11,9 +11,10 @@ class NewsRepoImpl implements NewsRepo{
   NewsRepoImpl({required this.newsRemoteDataSource,required this.newsLocalDataSource});
 
   @override
-  Future<NewsResponse> getNewsBySourceId(String sourceId, {int page = 1, int pageSize = 10}) {
+  Future<NewsResponse> getNewsBySourceId(String sourceId, {
+    int page = 1, int pageSize = 10}) {
     // TODO: implement getNewsBySourceId
-    return newsRemoteDataSource.getNewsBySourceId(sourceId);
+    return newsRemoteDataSource.getNewsBySourceId(sourceId,pageSize: pageSize,page: page);
   }
 
 }

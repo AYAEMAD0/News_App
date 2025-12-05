@@ -11,6 +11,6 @@ class NewsUseCase {
     int page = 1,
     int pageSize = 10,
   }) {
-    return newsRepo.getNewsBySourceId(sourceId);
+    return newsRepo.getNewsBySourceId(sourceId,page: page,pageSize: pageSize);
   }
 }

@@ -25,7 +25,7 @@ class ApiServices {
   Future<NewsResponseDto> getNewsBySourceId(
       String sourceId, {
         int page = 1,
-        int pageSize = 20,
+        int pageSize = 10,
       }) async {
     try{
       final response=await dio.get(
