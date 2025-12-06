@@ -5,6 +5,7 @@ import 'package:news_app/domain/entities/news/articles.dart';
 
 import '../../../../../../core/constants/app_strings.dart';
 import '../../../../../../core/theme/app_colors.dart';
+import 'web_view_item.dart';
 
 class BottomSheetWidget extends StatelessWidget {
   final ScrollController scrollController;
@@ -47,6 +48,23 @@ class BottomSheetWidget extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // todo: view article in webView
+                if (news.url != null && news.url!.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => WebViewItem(
+                        url: news.url!,
+                        nameNews:
+                            news.title?.split(' ').take(2).join(' ') ??
+                            AppStrings.noTitleNews,
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text(AppStrings.errorLink)),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).dividerColor,
