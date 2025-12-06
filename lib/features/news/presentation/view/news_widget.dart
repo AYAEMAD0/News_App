@@ -49,9 +49,9 @@ class _NewsWidgetState extends State<NewsWidget> {
     return BlocBuilder<NewsCubit, NewsState>(
       bloc: viewModel,
       builder: (context, state) {
-        if (state is LoadingState) {
+        if (state is NewsLoadingState) {
           return LoadingBaseWidget();
-        } else if (state is ErrorState) {
+        } else if (state is NewsErrorState) {
           return ErrorBaseWidget(
             onPressed: () {
               viewModel.reset();
@@ -59,11 +59,12 @@ class _NewsWidgetState extends State<NewsWidget> {
             },
             message: state.errorMessage.toString(),
           );
-        } else if (state is SuccessState || state is PaginationLoadingState) {
-          final articles = state is SuccessState
+        } else if (state is NewsSuccessState ||
+            state is NewsPaginationLoadingState) {
+          final articles = state is NewsSuccessState
               ? state.articleList
               : viewModel.articles;
-          final hasMore = state is SuccessState
+          final hasMore = state is NewsSuccessState
               ? state.hasMore
               : viewModel.hasMore;
 

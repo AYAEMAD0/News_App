@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextStyle textStyle;
@@ -45,8 +46,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return TextFormField(
       style: textStyle,
       controller: controller,
@@ -57,8 +56,8 @@ class CustomTextField extends StatelessWidget {
       obscuringCharacter: obscureCharacter ?? "*",
       maxLines: maxLines,
       cursorColor: Theme.of(context).canvasColor,
-      cursorHeight: height * 0.025,
-      cursorWidth: width * 0.006,
+      cursorHeight: 28.h,
+      cursorWidth: 2.w,
       keyboardType: keyboard ?? TextInputType.text,
       decoration: InputDecoration(
         hintText: hint,
@@ -66,8 +65,8 @@ class CustomTextField extends StatelessWidget {
         labelText: label,
         labelStyle: labelStyle,
         contentPadding: EdgeInsets.symmetric(
-          horizontal: width * 0.05,
-          vertical: height * 0.020,
+          horizontal: 8.w,
+          vertical: 18.h,
         ),
         enabledBorder: builtBorder(borderColor),
         focusedBorder: builtBorder(borderColor),
@@ -85,8 +84,8 @@ class CustomTextField extends StatelessWidget {
 
   OutlineInputBorder builtBorder([Color colorBorder = Colors.red]) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide(color: colorBorder, width: 1.1),
+      borderRadius: BorderRadius.circular(18.r),
+      borderSide: BorderSide(color: colorBorder, width: 1.5.w),
     );
   }
 }

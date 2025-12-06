@@ -2,29 +2,31 @@ import 'package:news_app/domain/entities/news/articles.dart';
 
 abstract class NewsState {}
 
-class InitialState extends NewsState {}
+class NewsInitialState extends NewsState {}
 
-class LoadingState extends NewsState {}
+class NewsLoadingState extends NewsState {}
 
-class PaginationLoadingState extends NewsState {}
+class NewsPaginationLoadingState extends NewsState {}
 
-class SuccessState extends NewsState {
+class NewsSuccessState extends NewsState {
   final List<Articles> articleList;
   final bool hasMore;
 
-  SuccessState({required this.articleList, this.hasMore = true});
-  SuccessState copyWith({
+  NewsSuccessState({required this.articleList, this.hasMore = true});
+
+  NewsSuccessState copyWith({
     List<Articles>? articleList,
     bool? hasMore,
   }) {
-    return SuccessState(
+    return NewsSuccessState(
       articleList: articleList ?? this.articleList,
       hasMore: hasMore ?? this.hasMore,
     );
   }
 }
 
-class ErrorState extends NewsState {
+class NewsErrorState extends NewsState {
   String? errorMessage;
-  ErrorState({required this.errorMessage});
+
+  NewsErrorState({required this.errorMessage});
 }

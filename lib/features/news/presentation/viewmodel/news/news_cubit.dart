@@ -3,13 +3,15 @@ import 'package:injectable/injectable.dart';
 import 'package:news_app/domain/entities/news/articles.dart';
 import 'package:news_app/domain/usecase/news_usecase.dart';
 
+import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/exceptions/app_exception.dart';
 import 'news_state.dart';
 
 @injectable
 class NewsCubit extends Cubit<NewsState> {
   NewsUseCase newsUseCase;
-  NewsCubit({required this.newsUseCase}) : super(InitialState());
+
+  NewsCubit({required this.newsUseCase}) : super(NewsInitialState());
 
   List<Articles> articles = [];
   int page = 1;
@@ -30,9 +32,9 @@ class NewsCubit extends Cubit<NewsState> {
     isLoading = true;
 
     if (page == 1) {
-      emit(LoadingState());
+      emit(NewsLoadingState());
     } else {
-      emit(PaginationLoadingState());
+      emit(NewsPaginationLoadingState());
     }
 
     try {
@@ -54,19 +56,23 @@ class NewsCubit extends Cubit<NewsState> {
         }
 
         emit(
-          SuccessState(
+          NewsSuccessState(
             articleList: List<Articles>.from(articles),
             hasMore: hasMore,
           ),
         );
       } else {
-        emit(ErrorState(errorMessage: response.status));
+        emit(
+          NewsErrorState(
+            errorMessage: response.status ?? AppStrings.somethingWentWrong,
+          ),
+        );
       }
     } catch (e) {
       if (e is AppException) {
-        emit(ErrorState(errorMessage: e.message));
+        emit(NewsErrorState(errorMessage: e.message));
       } else {
-        emit(ErrorState(errorMessage: e.toString()));
+        emit(NewsErrorState(errorMessage: e.toString()));
       }
     } finally {
       isLoading = false;
