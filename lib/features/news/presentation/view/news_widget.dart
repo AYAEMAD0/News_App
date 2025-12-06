@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../core/config/di.dart';
-import '../../../../core/widgets/error_api_widget.dart';
-import '../../../../core/widgets/loading_widget.dart';
+import '../../../../core/widgets/error_base_widget.dart';
+import '../../../../core/widgets/loading_base_widget.dart';
 import '../../../../domain/entities/source/sources.dart';
 import '../viewmodel/news/news_cubit.dart';
 import '../viewmodel/news/news_state.dart';
@@ -49,9 +50,9 @@ class _NewsWidgetState extends State<NewsWidget> {
       bloc: viewModel,
       builder: (context, state) {
         if (state is LoadingState) {
-          return LoadingWidget();
+          return LoadingBaseWidget();
         } else if (state is ErrorState) {
-          return ErrorApiWidget(
+          return ErrorBaseWidget(
             onPressed: () {
               viewModel.reset();
               viewModel.getNewsBySourceId(widget.source.id!, reset: true);
@@ -86,7 +87,7 @@ class _NewsWidgetState extends State<NewsWidget> {
             },
           );
         } else {
-          return LoadingWidget();
+          return LoadingBaseWidget();
         }
       },
     );

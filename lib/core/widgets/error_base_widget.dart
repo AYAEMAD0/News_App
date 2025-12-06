@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../constants/app_strings.dart';
 import 'button_try_again.dart';
+
 class ErrorBaseWidget extends StatelessWidget {
   final void Function() onPressed;
-  const ErrorBaseWidget({super.key, required this.onPressed});
+  final String? message;
+
+  const ErrorBaseWidget({super.key, required this.onPressed, this.message});
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(top: height*0.03),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       child: Center(
         child: Column(
-          spacing: 0.03*height,
+          spacing: 20.h,
           children: [
             Text(
-              AppStrings.somethingWentWrong,
+              message ?? AppStrings.somethingWentWrong,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             ButtonTryAgain(onPressed: onPressed),

@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:news_app/domain/entities/news/articles.dart';
 import 'package:news_app/domain/usecase/news_usecase.dart';
+
+import '../../../../../core/exceptions/app_exception.dart';
 import 'news_state.dart';
 
 @injectable
@@ -51,15 +53,21 @@ class NewsCubit extends Cubit<NewsState> {
           page++;
         }
 
-        emit(SuccessState(
-          articleList: List<Articles>.from(articles),
-          hasMore: hasMore,
-        ));
+        emit(
+          SuccessState(
+            articleList: List<Articles>.from(articles),
+            hasMore: hasMore,
+          ),
+        );
       } else {
         emit(ErrorState(errorMessage: response.status));
       }
     } catch (e) {
-     emit(ErrorState(errorMessage: e.toString()));
+      if (e is AppException) {
+        emit(ErrorState(errorMessage: e.message));
+      } else {
+        emit(ErrorState(errorMessage: e.toString()));
+      }
     } finally {
       isLoading = false;
     }
