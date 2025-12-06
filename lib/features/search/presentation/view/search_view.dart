@@ -10,12 +10,23 @@ import '../../../../core/widgets/error_base_widget.dart';
 import '../../../news/presentation/widget/news_item.dart';
 import '../viewmodel/search_news_cubit.dart';
 
-class SearchView extends StatelessWidget {
+class SearchView extends StatefulWidget {
   const SearchView({super.key});
 
   @override
+  State<SearchView> createState() => _SearchViewState();
+}
+
+class _SearchViewState extends State<SearchView> {
+  final viewModel = getIt<SearchNewsCubit>();
+
+  @override
+  void dispose() {
+    viewModel.close();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    final viewModel = getIt<SearchNewsCubit>();
     return BlocBuilder<SearchNewsCubit, SearchNewsState>(
       bloc: viewModel,
       builder: (context, state) {
@@ -33,30 +44,46 @@ class SearchView extends StatelessWidget {
                     borderColor: Theme.of(context).canvasColor,
                     fillColor: Theme.of(context).dividerColor,
                     prefixIconColor: Theme.of(context).canvasColor,
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     suffixIconColor: Theme.of(context).canvasColor,
                     suffixIcon: IconButton(
                       onPressed: () {
                         viewModel.clearSearch();
                       },
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                     ),
-                    onChanged: viewModel.searchNews,
+                    onChanged: (e) {
+                      viewModel.onSearchChanged(e);
+                    },
                   ),
+
                   SizedBox(height: 14.h),
                   Expanded(
                     child: () {
                       if (state is SearchNewsLoading) {
                         return const LoadingBaseWidget();
-                      } else if (state is SearchNewsError) {
+                      }
+                      if (state is SearchNewsInitial) {
+                        return Center(
+                          child: Text(AppStrings.noSearch, style: Theme
+                              .of(context)
+                              .textTheme
+                              .labelMedium,),
+                        );
+                      }
+                      if (state is SearchNewsError) {
                         return ErrorBaseWidget(
                           message: state.errorMessage,
-                          onPressed: () => viewModel.searchNews(
-                            viewModel.searchController.text,
-                          ),
+                          onPressed: () =>
+                              viewModel.searchNews(
+                                viewModel.searchController.text,),
                         );
-                      } else if (state is SearchNewsSuccess) {
-                        if (state.articles.isEmpty) {
+                      }
+
+                      if (state is SearchNewsSuccess) {
+                        final articles = state.articles;
+
+                        if (articles.isEmpty) {
                           return Center(
                             child: Text(
                               AppStrings.noResult,
@@ -65,11 +92,15 @@ class SearchView extends StatelessWidget {
                           );
                         }
                         return ListView.builder(
-                          itemCount: state.articles.length,
-                          itemBuilder: (context, index) =>
-                              NewsItem(articles: state.articles[index]),
+                          itemCount: articles.length,
+                          itemBuilder: (context, index) {
+                            return NewsItem(
+                              articles: articles[index],
+                            );
+                          },
                         );
                       }
+
                       return const SizedBox.shrink();
                     }(),
                   ),

@@ -12,6 +12,6 @@ class SearchNewsUseCase {
     required String query,
     String searchIn = "title,description,content",
   }) {
-    return searchNewsRepo.searchNews(query: query, searchIn: searchIn);
+    return searchNewsRepo.searchNews(query: query, searchIn: searchIn,);
   }
 }
