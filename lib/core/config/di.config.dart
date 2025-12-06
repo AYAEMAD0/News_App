@@ -20,6 +20,8 @@ import '../../api/data_source/local/source/source_local_data_source_impl.dart'
     as _i53;
 import '../../api/data_source/remote/news/news_remote_data_source_impl.dart'
     as _i739;
+import '../../api/data_source/remote/search/search_news_remote_data_source_impl.dart'
+as _i14;
 import '../../api/data_source/remote/source/source_remote_data_source_impl.dart'
     as _i694;
 import '../../api/dio/dio_module.dart' as _i67;
@@ -28,13 +30,18 @@ import '../../data/data_source/local/source/source_local_data_source.dart'
     as _i111;
 import '../../data/data_source/remote/news/news_remote_data_source.dart'
     as _i478;
+import '../../data/data_source/remote/search/search_news_remote_data_source.dart'
+as _i445;
 import '../../data/data_source/remote/source/source_remote_data_source.dart'
     as _i314;
 import '../../data/repo_impl/news/news_repo_impl.dart' as _i404;
+import '../../data/repo_impl/search/search_news_repo_impl.dart' as _i131;
 import '../../data/repo_impl/source/source_repo_impl.dart' as _i548;
 import '../../domain/repo/news/news_repo.dart' as _i745;
+import '../../domain/repo/search/search_news_repo.dart' as _i465;
 import '../../domain/repo/source/source_repo.dart' as _i849;
 import '../../domain/usecase/news_usecase.dart' as _i487;
+import '../../domain/usecase/search_news_usecase.dart' as _i392;
 import '../../domain/usecase/source_usecase.dart' as _i690;
 import '../../features/home/presentation/viewmodel/home/home_cubit.dart'
     as _i743;
@@ -42,6 +49,8 @@ import '../../features/news/presentation/viewmodel/news/news_cubit.dart'
     as _i923;
 import '../../features/news/presentation/viewmodel/source/source_cubit.dart'
     as _i666;
+import '../../features/search/presentation/viewmodel/search_news_cubit.dart'
+as _i219;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -80,12 +89,24 @@ extension GetItInjectableX on _i174.GetIt {
         _i694.SourceRemoteDataSourceImpl(apiServices: gh<_i394.ApiServices>()));
     gh.factory<_i923.NewsCubit>(
         () => _i923.NewsCubit(newsUseCase: gh<_i487.NewsUseCase>()));
+    gh.factory<_i445.SearchNewsRemoteDataSource>(() =>
+        _i14.SearchNewsRemoteDataSourceImpl(
+            apiServices: gh<_i394.ApiServices>()));
+    gh.factory<_i465.SearchNewsRepo>(() =>
+        _i131.SearchNewsRepoImpl(
+            searchNewsRemoteDataSource: gh<
+                _i445.SearchNewsRemoteDataSource>()));
     gh.factory<_i849.SourceRepo>(() => _i548.SourceRepoImpl(
           sourceRemoteDataSource: gh<_i314.SourceRemoteDataSource>(),
           sourceLocalDataSource: gh<_i111.SourceLocalDataSource>(),
         ));
+    gh.factory<_i392.SearchNewsUseCase>(() =>
+        _i392.SearchNewsUseCase(searchNewsRepo: gh<_i465.SearchNewsRepo>()));
     gh.factory<_i690.SourceUseCase>(
         () => _i690.SourceUseCase(sourceRepo: gh<_i849.SourceRepo>()));
+    gh.factory<_i219.SearchNewsCubit>(() =>
+        _i219.SearchNewsCubit(
+            searchNewsUseCase: gh<_i392.SearchNewsUseCase>()));
     gh.factory<_i666.SourceCubit>(
         () => _i666.SourceCubit(sourceUseCase: gh<_i690.SourceUseCase>()));
     return this;

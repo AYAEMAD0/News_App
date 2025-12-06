@@ -49,4 +49,28 @@ class ApiServices {
       rethrow;
     }
   }
+
+
+  Future<NewsResponseDto> searchNews({
+    required String query,
+    String searchIn = "title,description,content",
+  }) async {
+    try {
+      final response = await dio.get(
+          ApiEndpoint.newApi,
+          queryParameters: {
+            "q": query,
+            "searchIn": searchIn,
+            "apiKey": dotenv.env['API_KEY'],
+          });
+      return NewsResponseDto.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.error is AppException) {
+        throw e.error!;
+      }
+      rethrow;
+    }
+  }
+
+
 }

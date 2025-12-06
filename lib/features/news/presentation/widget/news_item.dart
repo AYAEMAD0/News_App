@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:news_app/domain/entities/news/articles.dart';
+
 import '../../../../../../core/theme/app_styles.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -20,7 +21,7 @@ class NewsItem extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 9.w,
+          horizontal: 7.w,
           vertical: 8.h,
         ),
         margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
