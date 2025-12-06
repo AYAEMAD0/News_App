@@ -17,4 +17,5 @@ class AppStrings {
   static const String searchError='Unknown API error';
   static const String noResult='No Results';
   static const String noSearch = 'Begin your search here.';
+  static const String noTitleNews = 'No Title for New';
 }
