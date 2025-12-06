@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:news_app/domain/usecase/source_usecase.dart';
+
+import '../../../../../core/exceptions/app_exception.dart';
 import 'source_state.dart';
 
 @injectable
@@ -21,7 +23,11 @@ class SourceCubit extends Cubit<SourceState> {
         emit(ErrorState(errorMessage: response.status));
       }
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      if (e is AppException) {
+        emit(ErrorState(errorMessage: e.message));
+      } else {
+        emit(ErrorState(errorMessage: e.toString()));
+      }
     }
   }
 

@@ -10,9 +10,14 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource{
   NewsRemoteDataSourceImpl({required this.apiServices});
 
   @override
-  Future<NewsResponse> getNewsBySourceId(String sourceId,{int page = 1, int pageSize = 10}) async{
+  Future<NewsResponse> getNewsBySourceId(String sourceId,{
+    int page = 1,
+    int pageSize = 10}) async{
     // TODO:NewsResponseDto==>NewsResponse
-    var responseDto =await apiServices.getNewsBySourceId(sourceId);
+    var responseDto =await apiServices.getNewsBySourceId(sourceId,
+        page: page,
+        pageSize: pageSize
+    );
     return responseDto.toNewsResponse();
   }
 

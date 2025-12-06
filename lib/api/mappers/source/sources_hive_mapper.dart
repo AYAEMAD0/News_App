@@ -1,9 +1,10 @@
-import '../../../domain/entities/source/sources.dart';
-import '../../model/source/sources_dto.dart';
+import 'package:news_app/data/model_hive/source/sources_model.dart';
 
-extension SourcesMapper on SourcesDto{
-  Sources toSources(){
-    return Sources(
+import '../../../domain/entities/source/sources.dart';
+
+extension SourcesHiveMapper on Sources{
+  SourcesModel toSourcesModel(){
+    return SourcesModel(
      category: category,
       name: name,
       id: id,

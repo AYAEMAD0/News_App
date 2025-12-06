@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:news_app/domain/entities/news/articles.dart';
 import '../../../../../../core/theme/app_styles.dart';
@@ -11,8 +12,6 @@ class NewsItem extends StatelessWidget {
   const NewsItem({super.key, required this.articles});
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     var convertedTimestamp = DateTime.parse(articles.publishedAt ?? "");
     var time = GetTimeAgo.parse(convertedTimestamp);
     return InkWell(
@@ -21,19 +20,19 @@ class NewsItem extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: width * 0.020,
-          vertical: height * 0.0093,
+          horizontal: 9.w,
+          vertical: 8.h,
         ),
-        margin: EdgeInsets.symmetric(horizontal: width * 0.02,vertical: height*0.009),
+        margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).canvasColor),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Column(
-          spacing: 0.01 * height,
+          spacing: 12.h,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               child: CachedNetworkImage(
                 imageUrl: articles.urlToImage ?? "",
                 placeholder: (context, url) => CircularProgressIndicator(

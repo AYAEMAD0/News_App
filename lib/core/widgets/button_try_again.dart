@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../constants/app_strings.dart';
 import '../theme/app_colors.dart';
 
@@ -8,17 +10,14 @@ class ButtonTryAgain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.gray,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: EdgeInsets.symmetric(
-          vertical: 0.015 * height,
-          horizontal: 0.03 * width,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.r),
         ),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 14.w),
       ),
       child: Text(
         AppStrings.tryAgain,
