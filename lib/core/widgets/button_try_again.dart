@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../constants/app_strings.dart';
 import '../theme/app_colors.dart';
 
@@ -15,10 +16,8 @@ class ButtonTryAgain extends StatelessWidget {
         backgroundColor: AppColors.gray,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.r),
-        )padding: EdgeInsets.symmetric(
-          vertical: 16.h,
-          horizontal: 14.w,
         ),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 14.w),
       ),
       child: Text(
         AppStrings.tryAgain,
