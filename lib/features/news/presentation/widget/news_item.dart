@@ -7,6 +7,7 @@ import 'package:news_app/domain/entities/news/articles.dart';
 import '../../../../../../core/theme/app_styles.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_colors.dart';
+import 'bottom_sheet_widget.dart';
 
 class NewsItem extends StatelessWidget {
   final Articles articles;
@@ -18,13 +19,11 @@ class NewsItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo open bottom sheet
+        showBottomSheet(context, articles);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 7.w,
-          vertical: 8.h,
-        ),
-        margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
+        padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 8.h),
+        margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).canvasColor),
           borderRadius: BorderRadius.circular(16.r),
@@ -63,6 +62,34 @@ class NewsItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> showBottomSheet(context, news) async {
+    return await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).canvasColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.r),
+          topRight: Radius.circular(16.r),
+        ),
+      ),
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.80.h,
+          minChildSize: 0.4.h,
+          maxChildSize: 0.99.h,
+          expand: false,
+          builder: (context, scrollController) {
+            return BottomSheetWidget(
+              news: news,
+              scrollController: scrollController,
+            );
+          },
+        );
+      },
     );
   }
 }
