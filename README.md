@@ -3,7 +3,7 @@
 **New** is a modern, fast, and lightweight Flutter news application built using  
 **Clean Architecture, MVVM, and the Repository Pattern**.  
 The app fetches real-time news using **API**, supports **caching**, **pagination**, **theming**, *
-*search with debounce**, and article preview through an integrated **WebView**.
+**search with debounce**, and article preview through an integrated **WebView**.
 
 ---
 
